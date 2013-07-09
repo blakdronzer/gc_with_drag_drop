@@ -412,10 +412,10 @@ class Examples extends CI_Controller {
     
     public function populate_up_down($value, $row) {
 		$primary_key = $this->session->userdata('primary_key');
-    	$str = "<a href='javascript:moveToTop(" . $row->$primary_key . ")'><img src='" . base_url() . "assets/images/navigate-top-icon.png'></a>";
-    	$str .= "<a href='javascript:moveUp(" . $row->$primary_key . ")'><img src='" . base_url() . "assets/images/navigate-up-icon.png'></a>";
-    	$str .= "<a href='javascript:moveDown(" . $row->$primary_key . ")'><img src='" . base_url() . "assets/images/navigate-down-icon.png'></a>";
-    	$str .= "<a href='javascript:moveToBottom(" . $row->$primary_key . ")'><img src='" . base_url() . "assets/images/navigate-bottom-icon.png'></a>";
+    	$str = "<a href='javascript:moveToTop(\"" . $row->$primary_key . "\")'><img src='" . base_url() . "assets/images/navigate-top-icon.png'></a>";
+    	$str .= "<a href='javascript:moveUp(\"" . $row->$primary_key . "\")'><img src='" . base_url() . "assets/images/navigate-up-icon.png'></a>";
+    	$str .= "<a href='javascript:moveDown(\"" . $row->$primary_key . "\")'><img src='" . base_url() . "assets/images/navigate-down-icon.png'></a>";
+    	$str .= "<a href='javascript:moveToBottom(\"" . $row->$primary_key . "\")'><img src='" . base_url() . "assets/images/navigate-bottom-icon.png'></a>";
     	return $str;
     }	
 	
