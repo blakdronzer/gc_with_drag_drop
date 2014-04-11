@@ -54,7 +54,7 @@ class Priority_model extends CI_Model
 			$group_val = $from_row[$group_field];
 			$sql = "select * from $table where $priority_field < (select $priority_field from $table where $primary_key='$sourceId') and $group_field = $group_val ORDER BY priority DESC limit $distance";
 		} else {
-			$sql = "select * from $table where $priority_field < (select $priority_field from $table where $primary_key='$sourceId') ORDER BY priority DESC limit $distance";
+			$sql = "select * from $table where $priority_field < (select $priority_field from $table where $primary_key='$sourceId') ORDER BY $priority_field DESC limit $distance";
 		}
 		//echo "Executing $sql<Br>\n";
 		$query = $this->db->query($sql);
