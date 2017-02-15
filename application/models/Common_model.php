@@ -108,4 +108,3 @@ class Common_model extends CI_Model
 		}
 	}
 }
-?>
