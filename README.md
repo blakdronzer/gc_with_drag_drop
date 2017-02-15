@@ -6,18 +6,24 @@ This is an example application which features the power of Drag and Drop library
 The files you need to look out for pulling up into your project
 
 1 - application/libraries/priority_manager.php
+
 2 - application/models/priority_model.php
+
 3 - application/models/common_model.php
 
 4 - assets/images/navigate-bottom-icon.png
+
 5 - assets/images/navigate-down-icon.png
+
 6 - assets/images/navigate-top-icon.png
+
 7 - assets/images/navigate-up-icon.png
 
 
 Changes that you need to incorporate in your code
 
 1 - assets/grocery_crud/themes/flexigrid/js
+
 				this_form.ajaxSubmit({
 					 success:    function(data){
 					 .....
@@ -27,13 +33,15 @@ Changes that you need to incorporate in your code
 				}); 
 
 2 - assets/grocery_crud/themes/flexigrid/views/list_template.php
+
 	add the following lines below 
 	$this->set_js($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 	.......
 	$this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
 	$this->set_js($this->default_javascript_path.'/jquery_plugins/ui/'.grocery_CRUD::JQUERY_UI_JS);
-	
+
 3 - assets/grocery_crud/themes/flexigrid/views/list.php
+
 	replace  ----- <tr  <?php if($num_row % 2 == 1){?>class="erow"<?php }?>>
 	.......
 	with   ----- <tr  <?php if($num_row % 2 == 1){?>class="erow"<?php }?> data_id="<?php echo $row->$primary_key ?>">
@@ -44,8 +52,8 @@ Post this, in the controllers, add the following methods
 	/*	This function is to be called to update the table where it is independant ... without a group / foriegn key of data. 
 	*	This will update the data totally on the table (as implemented in the shared example)
 	*/
+	
 	function updatePosition($table, $sourceId, $distance, $direction) {
-
 		$this->load->library('Priority_manager');
 		$manager = new Priority_manager();
 		$manager->setTable($table);
@@ -222,6 +230,7 @@ Post this, in the controllers, add the following methods
 	
 	
 **********************************************************************
+
 Rest all you can see stuff inside the code / explore new possibilities.
 
 Asumptions: The table which you are planning to have a drag drop feature should have a priority field.
@@ -229,26 +238,39 @@ Asumptions: The table which you are planning to have a drag drop feature should 
 How to use this,
 
 //Set the columns .... this is recommended if you are interested to show up the move up / down buttons
-$crud->columns('productCode', 'productName', 'productLine', 'productScale', 'productVendor', 'quantityInStock', 'buyPrice', 'MSRP', 'move_up_down');
+
+    $crud->columns('productCode', 'productName', 'productLine', 'productScale', 'productVendor', 'quantityInStock', 'buyPrice', 'MSRP', 'move_up_down');
 
 //Add the column callback to populate the field with the buttons 
-$crud->callback_column('move_up_down', array($this, 'populate_up_down'));
+
+    $crud->callback_column('move_up_down', array($this, 'populate_up_down'));
 
 //You can set the order by priority - this will ensure that your rows are rightly positioned as per the required priority
-$crud->order_by('priority');
+
+    $crud->order_by('priority');
 
 //Add the following session values
+
 //The 1st here registers the callback function for ajax requests. UpdatePosition is the function .. products is the table 
+
 //if we have had a group / caetgory_id ... the call would be updateGroupPosition/products/category_id
+
 //Rest of the parameters will be assigned / associated along with the url and be called
-$this->session->set_userdata('callableAction', site_url(). '/examples/updatePosition/products');
+
+    $this->session->set_userdata('callableAction', site_url(). '/examples/updatePosition/products');
 
 //This another key in session is very important. I am forcing it so we can be assured the we can have any 
+
 //primary key .. not just id (earlier i made the mistake and then realized that not everyone will prefer 
+
 //to have just ID as primary key). Hence i am forcing you also not to make the same mistake i did :)
-$this->session->set_userdata('primary_key', 'productCode');
+
+    $this->session->set_userdata('primary_key', 'productCode');
 
 //This call is required so the dynamic JS that gets generated .. gets added to the view and we can avail the facility
+
 //of drag and drop
-$crud->set_js("index.php/examples/dragdrop_js");			
+
+    $crud->set_js("index.php/examples/dragdrop_js");			
+
 
