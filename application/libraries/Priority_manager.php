@@ -148,7 +148,7 @@ class Priority_manager {
 			$top_row = $rows[count($rows)-1];
 			$this->priority_model->moveRowsDown($this->table, $this->primary_key, $this->priority_field, $this->group_field, $ids);
 			$data = array(
-					$this->priority_field=>$top_row['priority']
+					$this->priority_field=>$top_row[$this->priority_field]
 				);
 			$this->common_model->update($this->table, $data, array($this->primary_key=>$sourceId));
 		}
@@ -170,7 +170,7 @@ class Priority_manager {
 			$bottom_row = $rows[count($rows)-1];
 			$this->priority_model->moveRowsUp($this->table, $this->primary_key, $this->priority_field, $this->group_field, $ids);
 			$data = array(
-					$this->priority_field=>$bottom_row['priority']
+					$this->priority_field=>$bottom_row[$this->priority_field]
 			);
 			$this->common_model->update($this->table, $data, array($this->primary_key=>$sourceId));
 		}
@@ -202,8 +202,18 @@ class Priority_manager {
 	 * @author Amit Shah
 	 */
 	function moveToTop($sourceId) {
-		$this->priority_model->stepDownFromTop($this->table, $this->primary_key, $this->priority_field, $this->group_field, $sourceId);
-		$data = array($this->priority_field=>1);
+		//$this->priority_model->stepDownFromTop($this->table, $this->primary_key, $this->priority_field, $this->group_field, $sourceId);
+		if($this->group_field != FALSE) {
+			$source_row = $this->common_model->getByField($table, $this->primary_key, $sourceId);
+			$group_value = $source_row[$this->group_field];
+		} else {
+			$group_value = FALSE;
+		}
+		$minCount = $this->priority_model->getMinCount($this->table, $this->primary_key, $this->priority_field, $this->group_field, $group_value);
+		$data = array(
+					$this->priority_field=>($minCount-1)
+				);
+		
 		$this->common_model->update($this->table, $data, array($this->primary_key=>$sourceId));
 	}
 	
@@ -215,7 +225,7 @@ class Priority_manager {
 	 * @author Amit Shah
 	 */
 	function moveToBottom($sourceId) {
-		$this->priority_model->stepUpFromBottom($this->table, $this->primary_key, $this->priority_field, $this->group_field, $sourceId);
+		//$this->priority_model->stepUpFromBottom($this->table, $this->primary_key, $this->priority_field, $this->group_field, $sourceId);
 		if($this->group_field != FALSE) {
 			$source_row = $this->common_model->getByField($table, $this->primary_key, $sourceId);
 			$group_value = $source_row[$this->group_field];
