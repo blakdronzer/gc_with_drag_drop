@@ -6,12 +6,17 @@ This is an example application which features the power of Drag and Drop library
 The files you need to look out for pulling up into your project
 
 1 - application/libraries/priority_manager.php
+
 2 - application/models/priority_model.php
+
 3 - application/models/common_model.php
 
 4 - assets/images/navigate-bottom-icon.png
+
 5 - assets/images/navigate-down-icon.png
+
 6 - assets/images/navigate-top-icon.png
+
 7 - assets/images/navigate-up-icon.png
 
 
@@ -19,33 +24,56 @@ The files you need to look out for pulling up into your project
 Changes that you need to incorporate in your code
 
 1 - assets/grocery_crud/themes/flexigrid/js
+
 				this_form.ajaxSubmit({
+				
 					 success:    function(data){
+					 
 					 .....
+					 
 						if (makeTableSortable && typeof(makeTableSortable) == "function")
+						
 							makeTableSortable();
+							
 					 }
+					 
 				}); 
+				
 
 2 - assets/grocery_crud/themes/flexigrid/views/list_template.php
+
 	add the following lines below 
+	
 	$this->set_js($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
+	
 	.......
+	
 	$this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
+	
 	$this->set_js($this->default_javascript_path.'/jquery_plugins/ui/'.grocery_CRUD::JQUERY_UI_JS);
 	
+	
 3 - assets/grocery_crud/themes/flexigrid/views/list.php
+
 	replace  ----- <tr  <?php if($num_row % 2 == 1){?>class="erow"<?php }?>>
+	
 	.......
+	
 	with   ----- <tr  <?php if($num_row % 2 == 1){?>class="erow"<?php }?> data_id="<?php echo $row->$primary_key ?>">
+	
 
 
 Post this, in the controllers, add the following methods
 
+
 	/*	This function is to be called to update the table where it is independant ... without a group / foriegn key of data. 
+	
 	*	This will update the data totally on the table (as implemented in the shared example)
+	
 	*/
+	
 	function updatePosition($table, $sourceId, $distance, $direction) {
+	
 
 		$this->load->library('Priority_manager');
 		$manager = new Priority_manager();
