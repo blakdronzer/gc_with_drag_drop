@@ -6,12 +6,17 @@ This is an example application which features the power of Drag and Drop library
 The files you need to look out for pulling up into your project
 
 1 - application/libraries/priority_manager.php
+
 2 - application/models/priority_model.php
+
 3 - application/models/common_model.php
 
 4 - assets/images/navigate-bottom-icon.png
+
 5 - assets/images/navigate-down-icon.png
+
 6 - assets/images/navigate-top-icon.png
+
 7 - assets/images/navigate-up-icon.png
 
 
