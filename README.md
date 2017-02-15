@@ -15,6 +15,7 @@ The files you need to look out for pulling up into your project
 7 - assets/images/navigate-up-icon.png
 
 
+
 Changes that you need to incorporate in your code
 
 1 - assets/grocery_crud/themes/flexigrid/js
